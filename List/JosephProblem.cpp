@@ -4,20 +4,21 @@
 #include <cstdlib>
 using namespace std;
 
-class Node{
+class Node {
 public:
 	int num;
 	Node *ahead,*next;
 	Node(int n=0):num(n){}
 };
+
 Node* create_list(int N){
 	int n=1;
-	Node *_dummy = new Node(n); //建立第1個節點
-	Node *_head = _dummy; //list的頭節點, 指向第ㄧ個節點
-	Node *_tail = _head; //list的尾節點(循環雙向鏈表, 接回頭節點
+	Node *_dummy = new Node(n); //
+	Node *_head = _dummy; //list
+	Node *_tail = _head; //list
 	while(n++<N){
-		_dummy = new Node(n); //建立新節點
-		_tail->next = _dummy; //將_tail指針指向新節點
+		_dummy = new Node(n); 
+		_tail->next = _dummy; 
 		_dummy->ahead = _tail;
 		_tail = _tail->next;
 	}
@@ -39,18 +40,22 @@ Node* release_node(Node *_p, int m){
 	delete _temp;
 	return _p;
 }
+
 int main() {
-	//freopen("in.txt","r",stdin); 
-    //freopen("out.txt","w",stdout);
+	freopen("in.txt","r",stdin); 
+    freopen("out.txt","w",stdout);
+
 	int n,m;
 	scanf("%d %d",&n, &m);
-	Node *_head = create_list(n); //建立有n個節點的雙向鏈表
-	while(_head->next!=_head){//不斷釋放第m個節點,直到只剩下ㄧ個元素
+	Node *_head = create_list(n); 
+	
+	while(_head->next!=_head){ 
 		_head=release_node(_head, m);
 	}
 	cout<<_head->num<<endl;
-	//fclose(stdin); 
-    //fclose(stdout);
-	//system("PAUSE");
+	
+	fclose(stdin); 
+    fclose(stdout);
+	///system("PAUSE");
     return 0;
 }

@@ -10,10 +10,10 @@ class CInt {
 private:
 	char num[MAX_DIGI];
 public:
-	CInt() {}
+    CInt() {}
     CInt(char a[]) { strcpy(num,a);}
     CInt(const CInt &b){ strcpy(num,b.num);}
-	CInt multiply(CInt b);
+    CInt multiply(CInt b);
     void Print(){ printf("%s\n",num);}
 };
 
@@ -22,11 +22,11 @@ CInt CInt::multiply(CInt b) {//C=A*B
         int u[MAX_DIGI/4],v[MAX_DIGI/4],w[MAX_DIGI/2]={0};
         char s[4]={'0' ,'0', '0','\0' };
         CInt ans;
-        p=strlen(num);
-        q=strlen(b.num);
+        p = strlen(num);
+        q = strlen(b.num);
         reverse(num,num+p);
         reverse(b.num,b.num+q);
-         //A
+        //A
         int i=0,m=0;
         r=p%3;
         for (i=0; i<p-r;i+=3){
@@ -93,17 +93,17 @@ CInt CInt::multiply(CInt b) {//C=A*B
         return ans;
 }
 
-
-int main() {
-	//freopen("in.txt","r",stdin); 
+int main() {    
+    //freopen("in.txt","r",stdin); 
     //freopen("out.txt","w",stdout);
-	char m[256],n[256];
+    char m[256],n[256];
     scanf("%s %s",&m, &n);
     CInt a(m),b(n),c;
     c = a.multiply(b);
     c.Print();
-	//fclose(stdin); 
+    //fclose(stdin); 
     //fclose(stdout);
-	//system("PAUSE");
+    //system("PAUSE");
+
     return 0;
 }
