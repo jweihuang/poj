@@ -1,5 +1,7 @@
 #include <iostream>
 
+using namespace std;
+
 class LinkedList; 
 
 class Node{
@@ -21,10 +23,24 @@ class LinkedList{
         ~LinkedList(){};
         void push_front(int x);
         void push_back(int x);
-        void remove(int x);
+        bool remove(int x);
+        bool reverse();
         void clear();
-        void reverse();
         void print();
+};
+
+void LinkedList::print(){
+    if (first == 0){
+        cout << "The linked-list is empty" << endl;
+    }
+    else{
+        Node *iter = first;
+        while (iter != 0){
+            cout << iter->data << " ";
+            iter = iter->next;
+        }
+        cout << endl;
+    }
 }
 
 void LinkedList::push_front(int x){
@@ -33,8 +49,76 @@ void LinkedList::push_front(int x){
     first = node;
 }
 
-void LinkedList::print(){
+void LinkedList::push_back(int x){
+    Node *node = new Node(x);
+    if (first == 0){
+        first = node;
+    }
+    else{
+        Node *iter = first;
+        while(iter->next != 0){
+            iter = iter->next;
+        }
+        iter->next = node;
+    }
+}
+
+bool LinkedList::remove(int x){
+    Node *iter = first;
+    Node *prev = 0;
+
+    while(iter != 0 && iter->data != x){
+        prev = iter;
+        iter = iter->next;
+    }
     
+    if(iter ==0) { //linked-list is empty or element not found
+        return false;
+    }
+    else if(iter == first) { //remove first node
+        first = iter->next;
+        delete iter;
+        iter = 0;
+        return true;
+    }
+    else {
+        prev->next = iter->next;
+        delete iter;
+        iter =0;
+        return true;
+    }
+}
+
+void LinkedList::clear(){
+
+    while(first!=0){
+        Node *temp = first;
+        first = first->next;
+        delete temp;
+        temp = 0; 
+    }
+}
+
+bool LinkedList::reverse(){
+    Node *iter = first;
+    Node *prev = 0;
+    Node *rear = first->next;
+
+    if (iter==0 || rear == 0){
+        return false;
+    }
+
+    while(rear!=0){    
+        iter->next = prev;
+        prev = iter;
+        iter = rear;
+        rear = rear->next;
+    }
+
+    iter->next = prev;
+    first = iter;
+
+    return true;
 }
 
 int main() {
